@@ -5,20 +5,18 @@ def createDir(folder):
         os.makedirs(folder)
 
 def move(dirName, files):
-    for file in files:
-        os.replace(file, f"{dirName}/{file}")
+    if len(files) == 0:
+        pass
+    else:
+        for file in files:
+            os.replace(file, f"{dirName}/{file}")
 
 if __name__ == "__main__":
     files = os.listdir()
     files.remove('rmClutter.py')
-
-    createDir('images')
-    createDir('media')
-    createDir('docs')
-    createDir('executables')
-    createDir('zip-files')
-    createDir('code')
-    createDir('others')
+    files.remove('.gitignore')
+    files.remove('.git')
+    files.remove('readme.md')
 
     imgExts = ['.png', '.jpg', '.jpeg', '.svg', '.gif', '.raw', '.ico']
     images = [file for file in files if os.path.splitext(file)[1].lower() in imgExts]
@@ -43,6 +41,20 @@ if __name__ == "__main__":
         ext = os.path.splitext(file)[1].lower()
         if ext not in imgExts and ext not in mediaExts and ext not in docExts and ext not in executableExts and ext not in zipExts and ext not in codeExts and os.path.isfile(file):
             otherExts.append(file)
+
+    def fileCheck(filePack, dirName):
+        if len(filePack) == 0:
+            return None
+        else:
+            createDir(dirName)
+    
+    fileCheck(images, 'images')
+    fileCheck(media, 'media')
+    fileCheck(docs, 'docs')
+    fileCheck(executables, 'executables')
+    fileCheck(zipFiles, 'zip-files')
+    fileCheck(code, 'code')
+    fileCheck(otherExts, 'others')
 
 move('images', images)
 move('media', media)
