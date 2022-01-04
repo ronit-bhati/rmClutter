@@ -14,9 +14,16 @@ def move(dirName, files):
 if __name__ == "__main__":
     files = os.listdir()
     files.remove('rmClutter.py')
-    files.remove('.gitignore')
-    files.remove('.git')
-    files.remove('readme.md')
+
+    def fileRemove(fileName):
+        if fileName in files:
+            files.remove(fileName)
+        else:
+            pass
+
+    fileRemove('.gitignore')
+    fileRemove('.git')
+    fileRemove('.readme.md')
 
     imgExts = ['.png', '.jpg', '.jpeg', '.svg', '.gif', '.raw', '.ico']
     images = [file for file in files if os.path.splitext(file)[1].lower() in imgExts]
@@ -24,7 +31,7 @@ if __name__ == "__main__":
     mediaExts = ['.mp4', '.mkv', '.mov', '.wnv', '.flv', '.avi', '.avchd', '.webm', 'mp4']
     media = [file for file in files if os.path.splitext(file)[1].lower() in mediaExts]
 
-    docExts = ['.doc', '.docx', '.odt', '.pdf', '.xls', '.xlsx', '.ods', '.ppt', '.pptx', '.txt', '.md', '.odg', '.odp']
+    docExts = ['.doc', '.docx', '.odt', '.pdf', '.xls', '.xlsx', '.ods', '.ppt', '.pptx', '.txt', '.odg', '.odp']
     docs = [file for file in files if os.path.splitext(file)[1].lower() in docExts]
 
     executableExts = ['.exe', '.deb', '.osx', '.ex', '.apk', '.bat', '.cmd', '.msi', '.sh', '.jar', '.appimage']
